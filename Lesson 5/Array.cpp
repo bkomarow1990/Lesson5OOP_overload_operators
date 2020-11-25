@@ -1,1 +1,113 @@
 #include "Array.h"
+#include <iostream>
+using namespace std;
+Array::Array(size_t size, int filler)
+{
+	array = new int[size];
+	for (size_t i = 0; i < size; i++)
+	{
+		array[i] = filler;
+	}
+	this->size = size;
+}
+
+Array::Array(size_t size)
+	: Array(size,0)
+{
+	array[0] = 1;
+}
+
+Array::~Array()
+{
+	delete[] array;
+}
+
+Array::Array(const Array& other)
+{
+	*this = other;
+}
+
+Array& Array::operator=(const Array& other)
+{
+	if (this!=&other)
+	{
+		if (array!=nullptr)
+		{
+			delete[]array;
+		}
+		array = new int[size = other.size];
+		for (size_t i = 0; i < size; i++)
+		{
+			array[i] = other.array[i];
+		}
+	}
+	return *this;
+}
+
+Array Array::operator+(const Array& other)
+{
+	Array result(this->size + other.size); // 0*size(count)
+	for (size_t i = 0; i < this->size; i++)
+	{
+		result.array[i] = array[i];
+	}
+	for (size_t i = 0; i < other.size; i++)
+	{
+		result.array[i + size] = other.array[i];
+
+	}
+	return result;
+}
+
+void Array::operator++()
+{
+	for (size_t i = 0; i < size; i++)
+	{
+		array[i] +=1;
+	}
+}
+
+Array Array::operator++(int)
+{
+	Array old = *this; // copy this object in old
+	++* this;
+	return old;//return old value
+}
+
+int& Array::operator[](int index)
+{
+	static int error;
+	if (isValidIndex(index))
+	{
+		return array[index];
+	}
+	cerr << "Error index"<<index<<endl; // cerr = stream for errors
+	return error;
+}
+
+void Array::print() const
+{
+	cout << "Size: " << size << endl;
+	for (size_t i = 0; i < size; i++)
+	{
+		cout << array[i] << " ";
+	}
+	cout << endl;
+}
+
+bool Array::operator==(const Array& other)
+{
+	if (size!=other.size)
+	{
+		return false;
+	}
+		for (size_t i = 0; i < size; i++)
+		{
+			if (array[i]=!other.array[i])
+			{
+				return false;
+			}
+		
+		}
+		return true;
+}
