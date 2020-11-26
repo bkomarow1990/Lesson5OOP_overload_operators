@@ -23,23 +23,24 @@ void Date::setMonth(const size_t& month_)
 }
 void Date::setDay(const size_t& day_)
 {
-		static size_t DaysInMonth[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
-		if (day_ <= DaysInMonth[month]) {
-			day = day_;
+		size_t DaysInMonth[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
+		if (day_ <= DaysInMonth[this->month] && day!=0) {
+			this->day = day_;
 		}
 		else if (year % 4 != 0 && year % 100 == 0 || year % 400 != 0) {
-			if (day_ <= 29 && month == 2) {
-				day = day_;
+			if (day <= 29 && month == 2) {
+				this->day = day_;
 			}
 			else if (day_ <= DaysInMonth[month]) {
-				day = day_;
+				this->day = day_;
+				this->day = day_;
 			}
 		}
 		else {
 
 			cout << "You enter inccrect data" << endl;
 			cout << "Enter date";
-			int temp;
+			size_t temp;
 			cin >> temp;
 			setDay(temp);
 
@@ -104,7 +105,7 @@ Date::Date()
 	year = CURR_YEAR;
 }
 
-Date::Date(const size_t& day, const size_t month, const size_t& year)
+Date::Date(const size_t& day_, const size_t&month_, const size_t& year_)
 {
 	setDay(day);
 	setMonth(month);

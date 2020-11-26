@@ -14,7 +14,7 @@ int main() {
 	//(arr++).print();
 	cout << "================" << endl;
 	Array arr_new(5, 5);
-	(arr_new++).print();
-	arr_new.print();
+	//(arr_new++).print();
+	//arr_new.print();
 	return 0;
 }
