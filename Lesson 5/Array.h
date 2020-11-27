@@ -12,7 +12,9 @@ public:
 	void operator ++();
 	Array operator ++(int);
 	int& operator[](int index);
-	void print()const;
+	void print()const; 
+	explicit operator int();
+	Array operator()(int index,int howMany);
 	bool operator ==(const Array& other);
 	~Array();
 private:

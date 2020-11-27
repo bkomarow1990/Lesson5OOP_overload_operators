@@ -12,7 +12,7 @@ void Date::setMonth(const size_t& month_) {
 	}
 }
 void Date::setYear(const size_t& year_) {
-	if (year_ < CURRENT_YEAR && year_ < OLDEST_YEAR) {
+	if (year_ < CURRENT_YEAR && year_ > OLDEST_YEAR) {
 		year = year_;
 	}
 }
@@ -58,7 +58,7 @@ Date::Date() {
 
 Date::Date(const size_t _day, const size_t _month, const size_t _year)
 {
-	this->setDay(_day);
-	this->setMonth(_month);
 	this->setYear(_year);
+	this->setMonth(_month);
+	this->setDay(_day);
 }

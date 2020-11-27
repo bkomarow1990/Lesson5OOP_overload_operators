@@ -95,6 +95,40 @@ void Array::print() const
 	cout << endl;
 }
 
+Array::operator int()
+{
+	int summ = 0;
+	for (int i = 0; i < size; i++)
+	{
+		summ += array[i];
+	}
+	return summ;
+}
+
+Array Array::operator()(int index,int howMany)
+{
+	if (!isValidIndex(index))
+	{
+		return Array();
+	}
+	if (index+howMany>=(int)size)
+	{
+		howMany = size - index;
+	}
+	Array result(howMany);
+	
+
+	int j = 0;
+	//result.array = new int[howMany - index];
+	for (int i = index; i <= howMany; i++)
+	{
+		result.array[j] = this->array[i];
+		j++;
+	}
+	return result;
+	// 23 42 12 444
+}
+
 bool Array::operator==(const Array& other)
 {
 	if (size!=other.size)
