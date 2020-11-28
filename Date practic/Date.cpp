@@ -1,7 +1,7 @@
 #include "Date.h"
 #include <iostream>
 using namespace std;
-bool Date::isLeap(size_t& year)
+bool Date::isLeap(const size_t& year)const
 {
     return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
 }
@@ -31,7 +31,55 @@ void Date::setDay(const size_t& day_) {
 		cout << "ENTER CORRECT DATE" << endl;
 	}
 }
+const size_t Date::getYear() const
+{
+	return year;
+}
+void Date::addOneDay()
+{
+	size_t DaysInMonth[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
+	if (isLeap(year))
+	{
+		DaysInMonth[1] = 29;
+	}
+	if (DaysInMonth[month - 1] == day)
+	{
+		day = 1;
+		month++;
+		if (month > 12)
+		{
+			month = 1;
+			year++;
+		}
+	}
+	else {
+		day++;
+	}
+}
+void Date::minusOneDay()
+{
+	size_t DaysInMonth[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
+	if (isLeap(year))
+	{
+		DaysInMonth[1] = 29;
+	}
+	if (day==1)
+	{
+		if (month!=1)
+		{
+			month -= 1;
+		}
+		day = DaysInMonth[month - 1];
+		if (month == 1)
+		{
+			year--;
+		}
 
+	}
+	else {
+		day--;
+	}
+}
 void Date::inputDate()
 {
 	size_t day_, month_, year_;
@@ -49,6 +97,73 @@ void Date::inputDate()
 void Date::print()
 {
 	cout << day << "." << month << "." << year << endl;
+}
+const int Date::howManyDays() const
+{
+	size_t DaysInMonth[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
+	if (isLeap(year))
+	{
+		DaysInMonth[1] = 29;
+	}
+	int thisDays = 0;
+	thisDays = day + (month * DaysInMonth[month - 1]) + (year * isLeap(year) ? 365 : 366);
+	return thisDays;
+}
+void Date::operator++()
+{
+	addOneDay();
+}
+Date Date::operator++(int)
+{
+	Date old = *this;
+	++* this;
+	return old;
+}
+void Date::operator--()
+{
+	minusOneDay();
+}
+Date Date::operator--(int)
+{
+	Date old = *this;
+	--* this;
+	return old;
+}
+bool Date::operator==(const Date& other) const
+{
+	if (day==other.day && month == other.month && year==other.day)
+	{
+		return true;
+	}
+	return false;
+}
+bool Date::operator!=(const Date& other) const
+{
+	return !(*this == other);
+}
+bool Date::operator<(const Date& other) const
+{
+	return howManyDays() < other.howManyDays();
+}
+bool Date::operator>(const Date& other) const
+{
+	return howManyDays() > other.howManyDays();
+}
+Date& Date::operator+=(const int& num)
+{
+	for (int i = 0; i < num; i++)
+	{
+		addOneDay();
+	}
+	return *this;
+}
+Date& Date::operator-=(const int& num)
+{
+	for (int i = 0; i < num; i++)
+	{
+		minusOneDay();
+	}
+	return *this;
 }
 Date::Date() {
 	day = 1;
