@@ -27,6 +27,14 @@ Array::Array(const Array& other)
 	*this = other;
 }
 
+Array::Array(Array&& other)
+{
+	this->array = other.array;
+	this->size = other.size;
+	other.array = nullptr;
+	other.size = 0;
+}
+
 Array& Array::operator=(const Array& other)
 {
 	if (this!=&other)
@@ -42,6 +50,24 @@ Array& Array::operator=(const Array& other)
 		}
 	}
 	return *this;
+}
+
+Array& Array::operator=(Array&& other)
+{
+	if (this!=&other)
+	{
+		if (this->array!=nullptr)
+		{
+			delete[] array;
+			this->array = other.array;
+			size = other.size;
+			other.array = nullptr;
+			other.size = 0;
+		}
+	}
+	else {
+		return *this;
+	}
 }
 
 Array Array::operator+(const Array& other)

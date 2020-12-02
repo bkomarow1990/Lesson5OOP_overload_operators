@@ -6,8 +6,10 @@ public:
 	Array(size_t size);
 	Array()=default;
 	
-	Array(const Array& other);
+	Array(const Array& other); // copy ctor
+	Array(Array&& other); // move ctor
 	Array& operator  =(const Array& other);
+	Array& operator = (Array&& other);
 	Array operator +(const Array& other);
 	void operator ++();
 	Array operator ++(int);
