@@ -16,6 +16,7 @@ class Date
 		void print();
 		const int howManyDays()const;
 		void operator++();
+		const int getDifferent(const Date& other)const; // get different of days
 		Date operator++(int);
 		void operator--();
 		Date operator--(int);

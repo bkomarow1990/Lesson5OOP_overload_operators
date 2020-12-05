@@ -25,5 +25,7 @@ int main() {
 	cout << boolalpha <<(date2 <  dy)<< endl;
 	cout << "Operator >" << endl;
 	cout << boolalpha << (date2 > dy) << endl;
+	cout << "Get Different of days: " << endl;
+	cout<<date2.getDifferent(dy)<<endl;
 	return 0;
 }

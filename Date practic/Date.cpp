@@ -25,7 +25,6 @@ void Date::setDay(const size_t& day_) {
 	}
 	else if (month == 2 && day_ == 29 && isLeap(year)) {
 		this->day = day_;
-
 	}
 	else {
 		cout << "ENTER CORRECT DATE" << endl;
@@ -112,6 +111,20 @@ const int Date::howManyDays() const
 void Date::operator++()
 {
 	addOneDay();
+}
+const int Date::getDifferent(const Date& other) const
+{
+	if (this->howManyDays()<other.howManyDays())
+	{
+		return other.howManyDays() - howManyDays();
+	}
+	if (this->howManyDays() > other.howManyDays())
+	{
+		return howManyDays() - other.howManyDays() ;
+	}
+	else {
+		return 0;
+	}
 }
 Date Date::operator++(int)
 {
